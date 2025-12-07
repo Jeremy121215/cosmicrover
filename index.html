@@ -1,75 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CosmicRover - 星河为梦</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            width: 100vw;
-            height: 100vh;
-            background: #0a0a2a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-        
-        .logo-container {
-            text-align: center;
-        }
-        
-        .logo {
-            max-width: 400px;
-            max-height: 400px;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        .loading-text {
-            color: #4fc3f7;
-            margin-top: 20px;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            opacity: 0.8;
-        }
-    </style>
+    <meta http-equiv="refresh" content="0; url=login.html">
 </head>
 <body>
-    <div class="logo-container">
-        <img src="logo/星河为梦.jpg" alt="星河为梦" class="logo" 
-             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x400/0a0a2a/4fc3f7?text=CosmicRover'">
-        <div class="loading-text">正在进入游戏...</div>
-    </div>
-
-    <script>
-        // 页面加载完成后开始3秒倒计时
-        window.onload = function() {
-            console.log('🚀 CosmicRover 启动页加载完成');
-            
-            // 3秒后自动跳转到登录页
-            setTimeout(function() {
-                console.log('3秒倒计时结束，跳转到登录页');
-                window.location.href = 'login.html';
-            }, 3000);
-            
-            // 如果Logo加载失败，显示占位图
-            const logo = document.querySelector('.logo');
-            logo.onerror = function() {
-                console.log('Logo加载失败，使用占位图');
-                this.src = 'https://via.placeholder.com/400x400/0a0a2a/4fc3f7?text=CosmicRover';
-            };
-        };
-    </script>
 </body>
 </html>
