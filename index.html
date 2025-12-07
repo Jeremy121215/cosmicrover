@@ -4,123 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CosmicRover - 星河为梦</title>
-    <link rel="stylesheet" href="style.css">
     <style>
-        .logo-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 100vw;
+            height: 100vh;
+            background: #0a0a2a;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #0a0a2a 0%, #1a1a3a 100%);
-            z-index: 1000;
-            animation: fadeOut 1.5s ease-in-out 3s forwards;
+            overflow: hidden;
+        }
+        
+        .logo-container {
+            text-align: center;
         }
         
         .logo {
             max-width: 400px;
             max-height: 400px;
-            animation: pulse 2s infinite, float 3s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        @keyframes fadeOut {
-            to { opacity: 0; visibility: hidden; }
-        }
-        
-        .content {
-            display: none;
-            animation: fadeIn 1s ease-in-out 3.5s forwards;
+            animation: fadeIn 0.5s ease-out;
         }
         
         @keyframes fadeIn {
-            to { display: block; }
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
         
-        .welcome-text {
-            text-align: center;
-            margin-top: 100px;
-            opacity: 0;
-            animation: slideUp 1s ease-out 4s forwards;
-        }
-        
-        @keyframes slideUp {
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-            from { 
-                opacity: 0;
-                transform: translateY(50px);
-            }
-        }
-        
-        .enter-btn {
-            display: block;
-            width: 200px;
-            margin: 30px auto;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            background: linear-gradient(45deg, #2196f3, #4fc3f7);
-            border: none;
-            border-radius: 50px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .enter-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(33, 150, 243, 0.3);
+        .loading-text {
+            color: #4fc3f7;
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
-    <!-- Logo显示区 -->
-    <div class="logo-container" id="logoContainer">
+    <div class="logo-container">
         <img src="logo/星河为梦.jpg" alt="星河为梦" class="logo" 
-             onerror="this.src='https://via.placeholder.com/400x400/0a0a2a/4fc3f7?text=星河为梦'">
-    </div>
-    
-    <!-- 主内容区 -->
-    <div class="content" id="mainContent">
-        <div class="welcome-text">
-            <h1>🚀 CosmicRover</h1>
-            <h2>星河为梦 · 漫游星际</h2>
-            <p>欢迎来到星际漫游车探险世界</p>
-            <button class="enter-btn" onclick="enterGame()">进入游戏</button>
-        </div>
+             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x400/0a0a2a/4fc3f7?text=CosmicRover'">
+        <div class="loading-text">正在进入游戏...</div>
     </div>
 
     <script>
-        // 3秒后自动跳转（可选）
-        setTimeout(function() {
-            document.getElementById('logoContainer').style.animation = 'fadeOut 1s forwards';
-        }, 3000);
-        
-        function enterGame() {
-            window.location.href = 'login.html';
-        }
-        
-        // 如果logo加载失败，3秒后自动进入
-        setTimeout(function() {
+        // 页面加载完成后开始3秒倒计时
+        window.onload = function() {
+            console.log('🚀 CosmicRover 启动页加载完成');
+            
+            // 3秒后自动跳转到登录页
+            setTimeout(function() {
+                console.log('3秒倒计时结束，跳转到登录页');
+                window.location.href = 'login.html';
+            }, 3000);
+            
+            // 如果Logo加载失败，显示占位图
             const logo = document.querySelector('.logo');
-            if (logo.naturalHeight === 0) {
-                enterGame();
-            }
-        }, 3000);
+            logo.onerror = function() {
+                console.log('Logo加载失败，使用占位图');
+                this.src = 'https://via.placeholder.com/400x400/0a0a2a/4fc3f7?text=CosmicRover';
+            };
+        };
     </script>
 </body>
 </html>
