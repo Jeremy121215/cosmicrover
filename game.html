@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CosmicRover - 星际漫游车</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- 游戏头部 -->
+        <header class="game-header">
+            <div class="game-title">
+                <span>🚀</span>
+                <span>CosmicRover</span>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-name" id="currentUserName">游客</div>
+                <div class="resources-display">
+                    <span>矿晶: <span id="crystalsCount">1000</span></span>
+                </div>
+                <button class="logout-btn" onclick="logout()">退出</button>
+            </div>
+        </header>
+        
+        <!-- 游戏主体 -->
+        <main class="game-main">
+            <!-- 侧边栏 -->
+            <aside class="game-sidebar">
+                <div class="sidebar-section">
+                    <h3>🌍 关卡选择</h3>
+                    <div class="level-list">
+                        <div class="level-item active" data-level="1" onclick="loadLevel(1)">
+                            <div class="level-icon">1</div>
+                            <div class="level-info">
+                                <div class="level-name">月球基地</div>
+                                <div class="level-status">已解锁</div>
+                            </div>
+                        </div>
+                        <div class="level-item" data-level="2" onclick="loadLevel(2)">
+                            <div class="level-icon">2</div>
+                            <div class="level-info">
+                                <div class="level-name">火星峡谷</div>
+                                <div class="level-status">锁定</div>
+                            </div>
+                        </div>
+                        <div class="level-item" data-level="3" onclick="loadLevel(3)">
+                            <div class="level-icon">3</div>
+                            <div class="level-info">
+                                <div class="level-name">金星火山</div>
+                                <div class="level-status">锁定</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3>🚗 漫游车状态</h3>
+                    <div class="rover-stats">
+                        <div class="stat-bar">
+                            <label>健康度</label>
+                            <div class="bar-container">
+                                <div class="bar-fill health-bar" style="width: 100%"></div>
+                            </div>
+                            <span id="healthValue">100%</span>
+                        </div>
+                        <div class="stat-bar">
+                            <label>燃料</label>
+                            <div class="bar-container">
+                                <div class="bar-fill fuel-bar" style="width: 100%"></div>
+                            </div>
+                            <span id="fuelValue">100%</span>
+                        </div>
+                        <div class="stat-bar">
+                            <label>速度</label>
+                            <div class="bar-container">
+                                <div class="bar-fill speed-bar" style="width: 0%"></div>
+                            </div>
+                            <span id="speedValue">0 km/h</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3>🎯 任务目标</h3>
+                    <div class="mission-info">
+                        <p id="missionText">到达关卡终点</p>
+                        <p id="missionProgress">进度: 0%</p>
+                    </div>
+                </div>
+            </aside>
+            
+            <!-- 游戏区域 -->
+            <section class="game-area">
+                <!-- 游戏画布 -->
+                <div class="game-canvas-container">
+                    <canvas id="gameCanvas"></canvas>
+                    
+                    <!-- 游戏控制按钮 -->
+                    <div class="mobile-controls">
+                        <button class="mobile-btn left-btn" id="leftBtn">←</button>
+                        <button class="mobile-btn jump-btn" id="jumpBtn">↑</button>
+                        <button class="mobile-btn right-btn" id="rightBtn">→</button>
+                    </div>
+                    
+                    <!-- 游戏提示 -->
+                    <div class="game-hint" id="gameHint">
+                        <p>使用方向键或WASD控制漫游车</p>
+                        <button onclick="hideHint()">知道了</button>
+                    </div>
+                </div>
+                
+                <!-- 游戏控制栏 -->
+                <div class="game-controls">
+                    <button class="control-btn primary-btn" id="startBtn">开始游戏</button>
+                    <button class="control-btn" id="pauseBtn">暂停</button>
+                    <button class="control-btn" id="resetBtn">重置</button>
+                    <button class="control-btn" onclick="showUpgrades()">升级</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- 升级模态框 -->
+    <div class="modal" id="upgradeModal">
+        <div class="modal-content">
+            <h3>🔧 漫游车升级</h3>
+            <div class="upgrade-list">
+                <div class="upgrade-item" data-upgrade="engine">
+                    <h4>引擎升级</h4>
+                    <p>提高最大速度20%</p>
+                    <p class="cost">花费: 500 矿晶</p>
+                    <button class="upgrade-btn" onclick="buyUpgrade('engine')">购买</button>
+                </div>
+                <div class="upgrade-item" data-upgrade="suspension">
+                    <h4>悬挂系统</h4>
+                    <p>提高越野稳定性</p>
+                    <p class="cost">花费: 300 矿晶</p>
+                    <button class="upgrade-btn" onclick="buyUpgrade('suspension')">购买</button>
+                </div>
+                <div class="upgrade-item" data-upgrade="fuel">
+                    <h4>燃料扩容</h4>
+                    <p>增加燃料容量50%</p>
+                    <p class="cost">花费: 400 矿晶</p>
+                    <button class="upgrade-btn" onclick="buyUpgrade('fuel')">购买</button>
+                </div>
+            </div>
+            <button class="close-btn" onclick="hideModal('upgradeModal')">关闭</button>
+        </div>
+    </div>
+    
+    <script src="auth.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
